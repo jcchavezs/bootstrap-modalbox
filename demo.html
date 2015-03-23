@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bootstrap modalbox</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="css/bootstrap-modal.css" rel="stylesheet">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="bootstrap-modalmanager.js"></script>
+        <script src="bootstrap-modal.js"></script>
+        <script src="bootstrap-modalbox.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Bootstrap 2.0 Modal Demo</h1>
+            <p>A simple demo of a <a href="http://twitter.github.com/bootstrap/javascript.html#modals">modal dialog</a> in Bootstrap 2.2.</p>
+
+            <p>We set the title of the window and close the dialog.</p>
+
+            <div class="example-buttons">
+                <a href="#" class="btn btn-primary btn-large example-selector">
+                    Test with class
+                </a>
+
+                <a data-toggle="modalbox" href="https://github.com/jcchavezs/bootstrap-modalbox" data-modalbox-settings='{"title":"Inline call with iframe","type":"iframe","height":"600"}' class="btn btn-primary btn-large">
+                    Test with inline attributes
+                </a>
+
+                <a class="btn btn-primary btn-large example-js">Test with javascript call</a>
+            </div>
+            <div class="hide">
+                <div id="inline-content">
+                    This is inline content
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                $('a.example-js').on('click', function() {
+                    $.modalbox({
+                        type: 'iframe',
+                        title: 'Javascript call',
+                        source: 'https://github.com/jcchavezs/bootstrap-modalbox',
+                        buttons: ['cancel', {
+                                'text': 'Send',
+                                'class': 'btn',
+                                'on': {
+                                    'click': function() {
+                                        alert('The iframe have been loaded.');
+                                    }
+                                }
+                            }]
+                    });
+
+                    return false;
+                });
+
+                $('a.example-selector').modalbox({
+                    title: 'Selector call',
+                    type: 'html',
+                    source: '<p>This is an example for selectors</p>'
+                });
+            });
+        </script>
+    </body>
+</html>

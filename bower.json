@@ -1,0 +1,25 @@
+{
+  "name": "bootstrap-modalbox",
+  "version": "0.2",
+  "authors": [
+    "José Carlos Chávez <jcchavezs@gmail.com>"
+  ],
+  "description": "A bootstrap plugin for easy management of modalboxes.",
+  "main": "bootstrap-modalbox.js",
+  "keywords": [
+    "bootstrap",
+    "modalbox"
+  ],
+  "license": "GNU v2",
+  "homepage": "https://github.com/jcchavezs/bootstrap-modalbox",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-modal": "2.2.5"
+  }
+}
