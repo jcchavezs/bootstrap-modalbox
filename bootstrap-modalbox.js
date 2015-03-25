@@ -60,14 +60,19 @@
             }
         }
 
+        if (settings.hasOwnProperty('beforeShow')) {
+            $.modalbox.callback(settings.beforeShow, $mb.get(0), [settings]);
+        }
+
         switch (settings.type) {
             case 'ajax':
                 $('body').modalmanager('loading');
 
                 $mb.find('.modal-body').load(settings.source, function() {
                     $mb.modal(settings);
-                    if (settings.hasOwnProperty('onShow')) {
-                        $.modalbox.callback(settings.onShow, settings);
+
+                    if (settings.hasOwnProperty('afterShow')) {
+                        $.modalbox.callback(settings.afterShow, $mb.get(0), [settings]);
                     }
                 });
 
@@ -93,16 +98,16 @@
 
                 var iframe = $iframe.get(0);
 
-                if (settings.hasOwnProperty('onShow')) {
+                if (settings.hasOwnProperty('afterShow')) {
                     if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
                         iframe.onreadystatechange = function() {
                             if (iframe.readyState === "complete") {
-                                $.modalbox.callback(settings.onShow, settings);
+                                $.modalbox.callback(settings.afterShow, $mb.get(0), [settings]);
                             }
                         };
                     } else {
                         iframe.onload = function() {
-                            $.modalbox.callback(settings.onShow, settings);
+                            $.modalbox.callback(settings.afterShow, $mb.get(0), [settings]);
                         };
                     }
                 }
@@ -113,8 +118,8 @@
 
                 $mb.find('.modal-body').html(settings.source);
 
-                if (settings.hasOwnProperty('onShow')) {
-                    $.modalbox.callback(settings.onShow, settings);
+                if (settings.hasOwnProperty('afterShow')) {
+                    $.modalbox.callback(settings.afterShow, $mb.get(0), [settings]);
 
                 }
                 break;
@@ -123,8 +128,8 @@
 
                 $mb.find('.modal-body').append($(settings.source)./*clone().*/attr('id', settings.id + settings.source.replace('#', '-')));
 
-                if (settings.hasOwnProperty('onShow')) {
-                    $.modalbox.callback(settings.onShow, settings);
+                if (settings.hasOwnProperty('afterShow')) {
+                    $.modalbox.callback(settings.afterShow, $mb.get(0), [settings]);
                 }
 
                 break;
@@ -188,10 +193,9 @@
             });
         }
 
-        if (settings.hasOwnProperty('onClose')) {
-            $('#' + settings.id).on('hidden', function() {
-                $.modalbox.callback(settings.onClose, settings);
-
+        if (settings.hasOwnProperty('afterClose')) {
+            $mb.on('hidden', function() {
+                $.modalbox.callback(settings.afterClose, $mb.get(0), [settings]);
             });
         }
 
@@ -202,13 +206,13 @@
         return parseInt(Math.random() * 1000000);
     };
 
-    $.modalbox.callback = function(callback, arguments) {
+    $.modalbox.callback = function(callback, thisArg, arguments) {
         switch (typeof callback) {
             case 'function':
-                return callback(arguments);
+                return callback.apply(thisArg, arguments);
                 break;
             case 'string':
-                return window[callback](arguments);
+                return window[callback].apply(thisArg, arguments);
                 break;
         }
     };
