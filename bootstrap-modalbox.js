@@ -84,7 +84,7 @@
                     $iframe = $('<iframe />', {
                         'name': settings.id + '-iframe',
                         'src': settings.source,
-                        'height': '100%',
+                        'height': settings.hasOwnProperty('dataHeight') ? settings.dataHeight : '100%',
                         'width': '100%',
                         'frameborder': 0
                     });
