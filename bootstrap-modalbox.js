@@ -1,9 +1,9 @@
 /* ===========================================================
- * bootstrap-modalbox.js v0.2
+ * bootstrap-modalbox.js v0.3
  * ===========================================================
  * Copyright 2015 José Carlos Chávez <jcchavezs@gmail.com>
  * ========================================================== */
-;
+'use strict';
 (function($) {
     $.fn.modalmanager.defaults.resize = true;
 
@@ -174,17 +174,26 @@
                                 'text': settings.buttonSubmitLabel ? settings.buttonSubmitLabel : $.modalbox.locale[b],
                                 'on': {
                                     'click': function() {
+                                        let $form;
+
                                         switch (settings.type) {
                                             case 'iframe':
-                                                $iframe.contents().find('form:first').submit();
+                                                $form = $iframe.contents().find('form:first');
                                                 break;
                                             default:
-                                                $mb.find('.modal-body form:first').submit();
+                                                $form = $mb.find('.modal-body form:first');
                                                 break;
                                         }
+
+                                        if($form.get(0).hasOwnProperty('submit')) {
+                                            console.log('[bootstrap-modalbox] The form has a property called \'submit\' which does not allow to submit the form.');
+                                        }
+
+                                        $form.submit();
                                     }
                                 }
                             };
+
                             break;
                     }
                 }
@@ -206,13 +215,13 @@
         return parseInt(Math.random() * 1000000);
     };
 
-    $.modalbox.callback = function(callback, thisArg, arguments) {
+    $.modalbox.callback = function(callback, thisArg, args) {
         switch (typeof callback) {
             case 'function':
-                return callback.apply(thisArg, arguments);
+                return callback.apply(thisArg, args);
                 break;
             case 'string':
-                return window[callback].apply(thisArg, arguments);
+                return window[callback].apply(thisArg, args);
                 break;
         }
     };
