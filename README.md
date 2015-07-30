@@ -36,4 +36,6 @@ The source for the content of the modalbox, can be a URL for 'ajax' and 'iframe'
 + **buttons**
 The buttons that will appear below the content of the modalbox. There are default buttons like 'yes', 'no', 'ok', 'cancel', 'close', 'save', 'submit' or you can create your own buttons by passing the attributes as an object (check http://api.jquery.com/jquery/#jQuery-html-attributes).
 
-**NB.** The submit and save buttons will only work if the form does not have a an element called 'submit'.
+**NB.**
+- The submit and save buttons will only work if the form does not have a an element called 'submit'.
+- When submiting a form inside an iframe, the plugin creates a hidden submit in order to trigger the HTML5 validation UI (otherwise, it will not work).

@@ -1,5 +1,5 @@
 /* ===========================================================
- * bootstrap-modalbox.js v0.3
+ * bootstrap-modalbox.js v0.4
  * ===========================================================
  * Copyright 2015 José Carlos Chávez <jcchavezs@gmail.com>
  * ========================================================== */
@@ -174,7 +174,7 @@
                                 'text': settings.buttonSubmitLabel ? settings.buttonSubmitLabel : $.modalbox.locale[b],
                                 'on': {
                                     'click': function() {
-                                        let $form;
+                                        let $form, $submit;
 
                                         switch (settings.type) {
                                             case 'iframe':
@@ -189,7 +189,17 @@
                                             console.log('[bootstrap-modalbox] The form has a property called \'submit\' which does not allow to submit the form.');
                                         }
 
-                                        $form.submit();
+                                        $submit = $form.find('[type=submit]:first');
+
+                                        if($submit.length === 0) {
+                                            $submit = $('<button />', {
+                                                'text': 'Submit',
+                                                'type': 'submit',
+                                                'class': 'hidden',
+                                            }).appendTo($form);
+                                        }
+
+                                        $submit.trigger('click');
                                     }
                                 }
                             };
