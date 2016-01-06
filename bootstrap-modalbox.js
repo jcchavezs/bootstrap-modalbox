@@ -3,7 +3,6 @@
  * ===========================================================
  * Copyright 2015 José Carlos Chávez <jcchavezs@gmail.com>
  * ========================================================== */
-'use strict';
 (function($) {
     $.fn.modalmanager.defaults.resize = true;
 
@@ -174,7 +173,7 @@
                                 'text': settings.buttonSubmitLabel ? settings.buttonSubmitLabel : $.modalbox.locale[b],
                                 'on': {
                                     'click': function() {
-                                        let $form, $submit;
+                                        var $form, $submit;
 
                                         switch (settings.type) {
                                             case 'iframe':
