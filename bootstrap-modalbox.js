@@ -1,5 +1,5 @@
 /* ===========================================================
- * bootstrap-modalbox.js v0.4
+ * bootstrap-modalbox.js v0.4.1
  * ===========================================================
  * Copyright 2015 José Carlos Chávez <jcchavezs@gmail.com>
  * ========================================================== */
@@ -263,8 +263,11 @@
 
     $(document).ready(function() {
         $('[data-toggle=modalbox]').each(function(i, e) {
-            var settings = jQuery.parseJSON($(e).attr('data-modalbox-settings'));
-            $(e).modalbox(settings);
+            var $e = $(e), settings = $e.data('modalbox-settings');
+
+            settings = typeof settings === 'object' ? settings : {};
+
+            $e.modalbox(settings);
         });
     });
 
